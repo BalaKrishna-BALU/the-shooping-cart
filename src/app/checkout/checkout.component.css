@@ -1,0 +1,7 @@
+.items-card:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.total-amount {
+    margin-right: 10px !important;
+}

@@ -1,0 +1,46 @@
+<mat-card class="container mat-elevation-z8" fxLayout="column wrap" fxLayoutAlign="start" fxLayoutGap="10px">
+    <mat-card-content>
+        <h3>Categories</h3>
+        <div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
+            <div>
+                <span>
+                    <mat-checkbox [checked]="applyAllFilters" [indeterminate]="applySomeFilters()"
+                        (change)="setAll($event.checked)">
+                        {{filter.name}}
+                    </mat-checkbox>
+                </span>
+                <span>
+                    <ul>
+                        <li *ngFor="let category of filter.categories">
+                            <mat-checkbox [(ngModel)]="category.isChecked"
+                                (ngModelChange)="updateAllFilters($event, category.name)">
+                                {{category.name}}
+                            </mat-checkbox>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <mat-radio-group aria-label="Select an option" fxLayoutGap="30px" (change)="sortItems()"
+                [(ngModel)]="sortFilter">
+                <mat-radio-button [value]="0">Low to high</mat-radio-button>
+                <mat-radio-button [value]="1">Higth to low</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="start center">
+            <mat-card class="card mat-elevation-z8" *ngFor="let item of items">
+                <mat-card-header>
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="./../../assets/images/lab.jpg" alt="Photo of a item(lab)">
+                <mat-card-actions fxLayoutAlign="space-between center">
+                    <span>{{item.price | currency}}</span>
+                    <button (click)="addToCart(item)" [disabled]="itemsAddedToCart.includes(item.id)" mat-raised-button
+                        color="primary">Add to cart</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="primary" [routerLink]="['/checkout']">Checkout</button>
+    </mat-card-actions>
+</mat-card>

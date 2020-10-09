@@ -1,0 +1,39 @@
+<mat-card class="container mat-elevation-z8">
+    <mat-card-content *ngIf="itemsInCart.length;else elseBlock">
+        <mat-card *ngFor="let item of itemsInCart" class="items-card mat-elevation-z8">
+            <mat-card-content fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <img width="200" height="120" src="./../../assets/images/lab.jpg">
+                <div fxLayout="column wrap" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                    <div>Name : {{item.name}}</div>
+                    <div>Category : {{item.category}}</div>
+                    <div>Price : {{item.price | currency}}</div>
+                    <div>
+                        <button [disabled]="item.quantity == 1" (click)="decreaseQuantity(item.id)" mat-icon-button
+                            aria-label="Button with remove icon">
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                        <mat-form-field>
+                            <mat-label>Quantity</mat-label>
+                            <input disabled [(ngModel)]="item.quantity" matInput #quantity>
+                        </mat-form-field>
+                        <button (click)="increaseQuantity(item.id)" mat-icon-button aria-label="Button with add icon">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="10px">
+                <button mat-raised-button color="primary" (click)="deleteItem(item.id)">Delete</button>
+                <span>Total : {{(item.price*quantity.value) | currency}}</span>
+            </mat-card-actions>
+        </mat-card>
+    </mat-card-content>
+    <mat-card-actions *ngIf="itemsInCart.length" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button color="primary" mat-raised-button (click)="buyNow()">Buy now</button>
+        <span class="total-amount">Total : {{totalAmount | currency}}</span>
+    </mat-card-actions>
+</mat-card>
+<ng-template #elseBlock>
+    No items to checkout, <a [routerLink]="['']">continue shopping</a>
+</ng-template>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <p>{{content}}</p>
+</div>
+<div mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="end center">
+    <button mat-raised-button color="warn" [mat-dialog-close]="'no'">No</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="'yes'" cdkFocusInitial>Yes</button>
+</div>
